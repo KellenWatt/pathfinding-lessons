@@ -1,2 +1,5 @@
-unity
+# Bazel build artefacts
 bazel-*
+
+# testing framework for C. Source has a lot of extra junk that isn't necessary
+unity
