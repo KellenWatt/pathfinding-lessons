@@ -22,15 +22,12 @@ struct List* list_from_array(int data[], size_t len) {
     if(len == 0) {
         return NULL;
     }
-    struct List* head = list_new(data[0]);
-    struct List* end = head;
-    for(int i=1; i<len; i++) {
-        struct List* tmp = list_new(data[i]);
-        end->next = tmp;
-        end = tmp;
+    struct List* l = NULL;
+    for(int i=len-1; i>=0; i--) {
+        l = list_push_front(l, data[i]);
     }
 
-    return head;
+    return l;
 }
 
 
