@@ -1,0 +1,45 @@
+# load("//plugs:unity.bzl", "unity_tests")
+# load("@bazel_skylib//rules:run_binary.bzl", "run_binary")
+# 
+# run_binary(
+#     name = "unity-gen",
+#     outs = ["unity-test-runner"],
+#     tool = ":unity/auto/generate_test_runner.rb",
+#     args = ["$(location linked-list.c)"]
+# )
+
+# unity_tests(
+#     name = "linked-list",
+#     test_file = "linked-list.c",
+# )
+
+genrule (
+    name = "unity-runner",
+    srcs = [":test-gen/generate_test_runner.rb", "stack-test.c"],
+    outs = ["stack-test_Runner.c"],
+    executable = False,
+    cmd = "$(location :test-gen/generate_test_runner.rb) $(location :stack-test.c) $(location stack-test_Runner.c)",
+)
+
+cc_library (
+    name = "unity",
+    srcs = [":unity/unity.c"],
+    hdrs = ["unity/unity.h", "unity/unity_internals.h"],
+)
+
+cc_library (
+    name = "stack",
+    srcs = glob(["stack/*.c"]),
+    hdrs = glob(["stack/*.h"]),
+)
+
+cc_binary (
+    name = "stack-test",
+    srcs = ["stack-test.c", "stack-test_Runner.c"],
+    includes = ["unity", "stack"],
+    deps = [
+        ":unity",
+        ":stack",
+    ]
+)
+
