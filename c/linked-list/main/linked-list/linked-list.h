@@ -3,10 +3,8 @@
 
 #include <stdlib.h>
 
-struct List {
-    int data;
-    struct List* next;
-};
+// TODO: Provide an actual structure for List
+struct List;
 
 struct List* list_new(int value);
 void list_free(struct List*);
