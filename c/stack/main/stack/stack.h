@@ -3,15 +3,7 @@
 
 #include <stdlib.h>
 
-struct Stack {
-    struct StackNode* top;
-    size_t size;
-}
-
-struct StackNode {
-    int data;
-    struct StackNode* prev;
-}
+struct Stack;
 
 struct Stack* stack_new();
 void stack_free(struct Stack*);
