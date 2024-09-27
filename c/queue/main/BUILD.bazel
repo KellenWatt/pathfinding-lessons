@@ -1,0 +1,30 @@
+genrule (
+    name = "unity-runner",
+    srcs = [":test-gen/generate_test_runner.rb", "queue-test.c"],
+    outs = ["queue-test_Runner.c"],
+    executable = False,
+    cmd = "$(location :test-gen/generate_test_runner.rb) $(location :queue-test.c) $(location queue-test_Runner.c)",
+)
+
+cc_library (
+    name = "unity",
+    srcs = [":unity/unity.c"],
+    hdrs = ["unity/unity.h", "unity/unity_internals.h"],
+)
+
+cc_library (
+    name = "queue",
+    srcs = glob(["queue/*.c"]),
+    hdrs = glob(["queue/*.h"]),
+)
+
+cc_binary (
+    name = "queue-test",
+    srcs = ["queue-test.c", "queue-test_Runner.c"],
+    includes = ["unity", "queue"],
+    deps = [
+        ":unity",
+        ":queue",
+    ]
+)
+
