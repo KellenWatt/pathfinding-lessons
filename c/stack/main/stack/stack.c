@@ -1,10 +1,6 @@
 #include "stack.h"
 
 
-struct StackNode {
-    int data;
-    struct StackNode* prev;
-};
 
 struct StackNode* node_new(int data) {
     struct StackNode* node = malloc(sizeof(*node));

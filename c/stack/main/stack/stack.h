@@ -3,6 +3,11 @@
 
 #include <stdlib.h>
 
+struct StackNode {
+    int data;
+    struct StackNode* prev;
+};
+
 struct Stack {
     struct StackNode* top;
     size_t size;
