@@ -3,15 +3,7 @@
 
 #include <stdlib.h>
 
-struct QueueNode {
-    int data;
-    struct QueueNode* next;
-};
-
-struct Queue {
-    struct QueueNode* head;
-    size_t size;
-};
+struct Queue;
 
 struct Queue* queue_new();
 void queue_free(struct Queue*);
